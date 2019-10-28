@@ -16,11 +16,11 @@ github-login: ## Login to GitHub Package Registry
 publish: build-image push-image ## Build and publish Docker image to GitHub Package Registry
 
 build-image: ## Build linux-amd64 arch Docker image
-	env GOOS=linux GOARCH=amd64 go build -o ./dist/http-echo-linux-amd64
-	docker build -t ${GIT_USER}/http-echo/linux-amd64 .
+	env GOOS=linux GOARCH=amd64 go build -o ./dist/echo-linux-amd64
+	docker build -t ${GIT_USER}/echo/linux-amd64 .
 
 push-image: ## Push image to GitHub Package Registry
-	docker tag ${GIT_USER}/http-echo/linux-amd64 docker.pkg.github.com/${GIT_USER}/http-echo/linux-amd64:latest
-	docker push docker.pkg.github.com/${GIT_USER}/http-echo/linux-amd64:latest
-	docker tag ${GIT_USER}/http-echo/linux-amd64 docker.pkg.github.com/${GIT_USER}/http-echo/linux-amd64:${VERSION}
-	docker push docker.pkg.github.com/${GIT_USER}/http-echo/linux-amd64:${VERSION}
+	docker tag ${GIT_USER}/echo/linux-amd64 docker.pkg.github.com/${GIT_USER}/echo/linux-amd64:latest
+	docker push docker.pkg.github.com/${GIT_USER}/echo/linux-amd64:latest
+	docker tag ${GIT_USER}/echo/linux-amd64 docker.pkg.github.com/${GIT_USER}/echo/linux-amd64:${VERSION}
+	docker push docker.pkg.github.com/${GIT_USER}/echo/linux-amd64:${VERSION}
