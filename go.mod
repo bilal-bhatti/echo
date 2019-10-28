@@ -1,4 +1,4 @@
-module http-echo
+module echo
 
 go 1.13
 
