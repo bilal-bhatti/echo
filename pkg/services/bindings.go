@@ -1,3 +1,5 @@
+// +build ziplinegen
+
 package services
 
 import (
