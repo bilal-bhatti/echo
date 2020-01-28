@@ -1,9 +1,7 @@
-// +build restified
-
 package services
 
 import (
-	"echo/zipline"
+	zipline "github.com/bilal-bhatti/zipline/pkg"
 
 	"github.com/go-chi/chi"
 )
