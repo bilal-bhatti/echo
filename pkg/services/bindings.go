@@ -8,7 +8,6 @@ import (
 	"github.com/go-chi/chi"
 )
 
-// NewRouter ....
 func NewRouter() *chi.Mux {
 	mux := chi.NewRouter()
 
