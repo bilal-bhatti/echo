@@ -2,8 +2,8 @@ package main
 
 import (
 	"context"
+	"echo/pkg/services"
 	"flag"
-	"echo/handlers"
 	"log"
 	"net/http"
 	"os"
@@ -27,7 +27,7 @@ func main() {
 	// Init http server
 	server := &http.Server{
 		Addr:         *listenAddr,
-		Handler:      handlers.NewMux(),
+		Handler:      services.NewRouter(),
 		ErrorLog:     logger,
 		ReadTimeout:  5 * time.Second,
 		WriteTimeout: 10 * time.Second,
