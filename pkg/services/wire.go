@@ -4,7 +4,7 @@ package services
 
 import (
 	"context"
-	"echo/pkg/connectors"
+	"github.com/bilal-bhatti/echo/pkg/connectors"
 	"net/http"
 
 	"github.com/google/wire"

@@ -7,7 +7,6 @@ package services
 
 import (
 	"context"
-	"echo/pkg/models"
 	"encoding/json"
 	"net/http"
 	"strconv"
@@ -41,15 +40,15 @@ func ServicesContactsServiceCreateHandlerFunc(funk ServicesContactsServiceCreate
 
 		ctx := ProvideContext(req)
 
-		req := &models.ContactRequest{}
-		err = json.NewDecoder(req.Body).Decode(req)
+		contactRequest := &models.ContactRequest{}
+		err = json.NewDecoder(req.Body).Decode(contactRequest)
 		if err != nil {
 			// write error response
 			// invalid request error
 			panic(err)
 		}
 
-		result, err := funk(ctx, req)
+		result, err := funk(ctx, contactRequest)
 		if err != nil {
 			// write error response
 			// internal error
@@ -97,15 +96,15 @@ func ServicesThingsServiceCreateHandlerFunc(funk ServicesThingsServiceCreateType
 	return func(w http.ResponseWriter, req *http.Request) {
 		var err error // tempory fix
 
-		req := &models.ThingRequest{}
-		err = json.NewDecoder(req.Body).Decode(req)
+		thingRequest := &models.ThingRequest{}
+		err = json.NewDecoder(req.Body).Decode(thingRequest)
 		if err != nil {
 			// write error response
 			// invalid request error
 			panic(err)
 		}
 
-		result, err := funk(req)
+		result, err := funk(thingRequest)
 		if err != nil {
 			// write error response
 			// internal error
@@ -153,15 +152,15 @@ func ServicesEchoHandlerFunc(funk ServicesEchoType) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
 		var err error // tempory fix
 
-		req := EchoRequest{}
-		err = json.NewDecoder(req.Body).Decode(&req)
+		echoRequest := EchoRequest{}
+		err = json.NewDecoder(req.Body).Decode(&echoRequest)
 		if err != nil {
 			// write error response
 			// invalid request error
 			panic(err)
 		}
 
-		result, err := funk(req)
+		result, err := funk(echoRequest)
 		if err != nil {
 			// write error response
 			// internal error

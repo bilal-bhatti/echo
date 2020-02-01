@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"echo/pkg/services"
+	"github.com/bilal-bhatti/echo/pkg/services"
 	"flag"
 	"log"
 	"net/http"

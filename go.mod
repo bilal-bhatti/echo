@@ -1,4 +1,4 @@
-module echo
+module github.com/bilal-bhatti/echo
 
 go 1.13
 

@@ -1,8 +1,8 @@
 package services
 
 import (
-	"echo/pkg/connectors"
-	"echo/pkg/models"
+	"github.com/bilal-bhatti/echo/pkg/connectors"
+	"github.com/bilal-bhatti/echo/pkg/models"
 )
 
 type ThingsService struct {
@@ -11,8 +11,8 @@ type ThingsService struct {
 	ElasticSearch *connectors.ElasticSearchConnector
 }
 
-func (cs ThingsService) Create(req *models.ThingRequest) (*models.ThingResponse, error) {
-	res := cs.Data.Create(req.Input)
+func (cs ThingsService) Create(thingRequest *models.ThingRequest) (*models.ThingResponse, error) {
+	res := cs.Data.Create(thingRequest.Input)
 
 	return &models.ThingResponse{Output: res}, nil
 }

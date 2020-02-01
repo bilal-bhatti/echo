@@ -1,7 +1,6 @@
 package services
 
 import (
-	"net/http"
 	"strings"
 )
 
@@ -13,12 +12,8 @@ type EchoResponse struct {
 	Output string `json:"output"`
 }
 
-func Echo(req EchoRequest) (EchoResponse, error) {
+func Echo(echoRequest EchoRequest) (EchoResponse, error) {
 	return EchoResponse{
-		Output: strings.Replace(req.Input, "i", "o", -1),
+		Output: strings.Replace(echoRequest.Input, "i", "o", -1),
 	}, nil
-}
-
-func Zipline(funk func(req EchoRequest) (EchoResponse, error)) http.HandlerFunc {
-	panic("hi")
 }
