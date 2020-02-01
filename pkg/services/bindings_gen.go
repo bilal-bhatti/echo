@@ -27,9 +27,8 @@ func NewRouter() *chi.Mux {
 	mux := chi.NewRouter()
 	mux.Post("/contacts", ServicesContactsServiceCreateHandlerFunc(InitContactsService().Create))
 	mux.Get("/contacts/{id}", ServicesContactsServiceGetOneHandlerFunc(InitContactsService().GetOne))
-	things := InitThingsService()
-	mux.Post("/things", ServicesThingsServiceCreateHandlerFunc(things.Create))
-	mux.Get("/things/{id}", ServicesThingsServiceGetOneHandlerFunc(things.GetOne))
+	mux.Post("/things", ServicesThingsServiceCreateHandlerFunc(InitThingsService().Create))
+	mux.Get("/things/{id}", ServicesThingsServiceGetOneHandlerFunc(InitThingsService().GetOne))
 	mux.Post("/echo", ServicesEchoHandlerFunc(Echo))
 	return mux
 }

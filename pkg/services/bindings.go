@@ -11,13 +11,13 @@ import (
 func NewRouter() *chi.Mux {
 	mux := chi.NewRouter()
 
+	// bind contacts
 	mux.Post("/contacts", zipline.Post(InitContactsService().Create))
 	mux.Get("/contacts/{id}", zipline.Get(InitContactsService().GetOne))
 
 	// bind things
-	things := InitThingsService()
-	mux.Post("/things", zipline.Post(things.Create))
-	mux.Get("/things/{id}", zipline.Get(things.GetOne))
+	mux.Post("/things", zipline.Post(InitThingsService().Create))
+	mux.Get("/things/{id}", zipline.Get(InitThingsService().GetOne))
 
 	mux.Post("/echo", zipline.Post(Echo))
 
