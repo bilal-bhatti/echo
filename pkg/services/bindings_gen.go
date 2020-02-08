@@ -6,7 +6,6 @@
 package services
 
 import (
-	"context"
 	"encoding/json"
 	"net/http"
 	"strconv"
@@ -15,162 +14,159 @@ import (
 	"github.com/go-chi/chi"
 )
 
-type (
-	ServicesContactsServiceCreateType func(context.Context, *models.ContactRequest) (*models.ContactResponse, error)
-	ServicesContactsServiceGetOneType func(int) (*models.ContactResponse, error)
-	ServicesThingsServiceCreateType   func(*models.ThingRequest) (*models.ThingResponse, error)
-	ServicesThingsServiceGetOneType   func(int) (*models.ThingResponse, error)
-	ServicesEchoType                  func(EchoRequest) (EchoResponse, error)
-)
-
 func NewRouter() *chi.Mux {
 	mux := chi.NewRouter()
-	mux.Post("/contacts", ServicesContactsServiceCreateHandlerFunc(InitContactsService().Create))
-	mux.Get("/contacts/{id}", ServicesContactsServiceGetOneHandlerFunc(InitContactsService().GetOne))
-	mux.Post("/things", ServicesThingsServiceCreateHandlerFunc(InitThingsService().Create))
-	mux.Get("/things/{id}", ServicesThingsServiceGetOneHandlerFunc(InitThingsService().GetOne))
-	mux.Post("/echo", ServicesEchoHandlerFunc(Echo))
+	mux.Post("/contacts", ContactsServiceCreateHandlerFunc())
+	mux.Get("/contacts/{id}", ContactsServiceGetOneHandlerFunc())
+	mux.Post("/things", ThingsServiceCreateHandlerFunc())
+	mux.Get("/things/{id}", ThingsServiceGetOneHandlerFunc())
+	mux.Post("/echo", EchoHandlerFunc())
 	return mux
 }
 
-func ServicesContactsServiceCreateHandlerFunc(funk ServicesContactsServiceCreateType) http.HandlerFunc {
-	return func(w http.ResponseWriter, req *http.Request) {
+// ContactsServiceCreateHandlerFunc handles requests to:
+// path  : /contacts
+// method: Post
+func ContactsServiceCreateHandlerFunc() http.HandlerFunc {
+	return func(responseWriter http.ResponseWriter, request *http.Request) {
 		var err error // tempory fix
 
-		ctx := ProvideContext(req)
+		ctx := ProvideContext(request)
 
 		contactRequest := &models.ContactRequest{}
-		err = json.NewDecoder(req.Body).Decode(contactRequest)
+		err = json.NewDecoder(request.Body).Decode(contactRequest)
 		if err != nil {
-			// write error response
 			// invalid request error
-			panic(err)
+			http.Error(responseWriter, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+			return
 		}
 
-		result, err := funk(ctx, contactRequest)
+		contactsService := InitContactsService()
+
+		response, err := contactsService.Create(ctx, contactRequest)
 		if err != nil {
-			// write error response
-			// internal error
 			panic(err)
 		}
-
-		w.WriteHeader(http.StatusOK)
-		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
-		err = json.NewEncoder(w).Encode(result)
+		responseWriter.WriteHeader(http.StatusOK)
+		responseWriter.Header().Set("Content-Type", "text/plain; charset=utf-8")
+		err = json.NewEncoder(responseWriter).Encode(response)
 		if err != nil {
-			// write error response
 			panic(err)
 		}
 	}
 }
 
-func ServicesContactsServiceGetOneHandlerFunc(funk ServicesContactsServiceGetOneType) http.HandlerFunc {
-	return func(w http.ResponseWriter, req *http.Request) {
+// ContactsServiceGetOneHandlerFunc handles requests to:
+// path  : /contacts/{id}
+// method: Get
+func ContactsServiceGetOneHandlerFunc() http.HandlerFunc {
+	return func(responseWriter http.ResponseWriter, request *http.Request) {
 		var err error // tempory fix
 
-		id, err := strconv.Atoi(chi.URLParam(req, "id"))
+		id, err := strconv.Atoi(chi.URLParam(request, "id"))
 		if err != nil {
 			// invalid request error
-			panic(err)
+			http.Error(responseWriter, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+			return
 		}
 
-		result, err := funk(id)
+		contactsService := InitContactsService()
+
+		response, err := contactsService.GetOne(id)
 		if err != nil {
-			// write error response
-			// internal error
 			panic(err)
 		}
-
-		w.WriteHeader(http.StatusOK)
-		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
-		err = json.NewEncoder(w).Encode(result)
+		responseWriter.WriteHeader(http.StatusOK)
+		responseWriter.Header().Set("Content-Type", "text/plain; charset=utf-8")
+		err = json.NewEncoder(responseWriter).Encode(response)
 		if err != nil {
-			// write error response
 			panic(err)
 		}
 	}
 }
 
-func ServicesThingsServiceCreateHandlerFunc(funk ServicesThingsServiceCreateType) http.HandlerFunc {
-	return func(w http.ResponseWriter, req *http.Request) {
+// ThingsServiceCreateHandlerFunc handles requests to:
+// path  : /things
+// method: Post
+func ThingsServiceCreateHandlerFunc() http.HandlerFunc {
+	return func(responseWriter http.ResponseWriter, request *http.Request) {
 		var err error // tempory fix
 
 		thingRequest := &models.ThingRequest{}
-		err = json.NewDecoder(req.Body).Decode(thingRequest)
+		err = json.NewDecoder(request.Body).Decode(thingRequest)
 		if err != nil {
-			// write error response
 			// invalid request error
-			panic(err)
+			http.Error(responseWriter, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+			return
 		}
 
-		result, err := funk(thingRequest)
+		thingsService := InitThingsService()
+
+		response, err := thingsService.Create(thingRequest)
 		if err != nil {
-			// write error response
-			// internal error
 			panic(err)
 		}
-
-		w.WriteHeader(http.StatusOK)
-		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
-		err = json.NewEncoder(w).Encode(result)
+		responseWriter.WriteHeader(http.StatusOK)
+		responseWriter.Header().Set("Content-Type", "text/plain; charset=utf-8")
+		err = json.NewEncoder(responseWriter).Encode(response)
 		if err != nil {
-			// write error response
 			panic(err)
 		}
 	}
 }
 
-func ServicesThingsServiceGetOneHandlerFunc(funk ServicesThingsServiceGetOneType) http.HandlerFunc {
-	return func(w http.ResponseWriter, req *http.Request) {
+// ThingsServiceGetOneHandlerFunc handles requests to:
+// path  : /things/{id}
+// method: Get
+func ThingsServiceGetOneHandlerFunc() http.HandlerFunc {
+	return func(responseWriter http.ResponseWriter, request *http.Request) {
 		var err error // tempory fix
 
-		id, err := strconv.Atoi(chi.URLParam(req, "id"))
+		id, err := strconv.Atoi(chi.URLParam(request, "id"))
 		if err != nil {
 			// invalid request error
-			panic(err)
+			http.Error(responseWriter, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+			return
 		}
 
-		result, err := funk(id)
+		thingsService := InitThingsService()
+
+		response, err := thingsService.GetOne(id)
 		if err != nil {
-			// write error response
-			// internal error
 			panic(err)
 		}
-
-		w.WriteHeader(http.StatusOK)
-		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
-		err = json.NewEncoder(w).Encode(result)
+		responseWriter.WriteHeader(http.StatusOK)
+		responseWriter.Header().Set("Content-Type", "text/plain; charset=utf-8")
+		err = json.NewEncoder(responseWriter).Encode(response)
 		if err != nil {
-			// write error response
 			panic(err)
 		}
 	}
 }
 
-func ServicesEchoHandlerFunc(funk ServicesEchoType) http.HandlerFunc {
-	return func(w http.ResponseWriter, req *http.Request) {
+// EchoHandlerFunc handles requests to:
+// path  : /echo
+// method: Post
+func EchoHandlerFunc() http.HandlerFunc {
+	return func(responseWriter http.ResponseWriter, request *http.Request) {
 		var err error // tempory fix
 
 		echoRequest := EchoRequest{}
-		err = json.NewDecoder(req.Body).Decode(&echoRequest)
+		err = json.NewDecoder(request.Body).Decode(&echoRequest)
 		if err != nil {
-			// write error response
 			// invalid request error
-			panic(err)
+			http.Error(responseWriter, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+			return
 		}
 
-		result, err := funk(echoRequest)
+		response, err := Echo(echoRequest)
 		if err != nil {
-			// write error response
-			// internal error
 			panic(err)
 		}
-
-		w.WriteHeader(http.StatusOK)
-		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
-		err = json.NewEncoder(w).Encode(result)
+		responseWriter.WriteHeader(http.StatusOK)
+		responseWriter.Header().Set("Content-Type", "text/plain; charset=utf-8")
+		err = json.NewEncoder(responseWriter).Encode(response)
 		if err != nil {
-			// write error response
 			panic(err)
 		}
 	}
