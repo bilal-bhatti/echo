@@ -6,8 +6,6 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/bilal-bhatti/zipline"
-
 	"github.com/go-chi/chi"
 )
 
@@ -27,13 +25,13 @@ func NewRouter() *chi.Mux {
 	return mux
 }
 
-type ZiplineTemplate struct{}
+var zipline ZiplineTemplate
 
-func (z ZiplineTemplate) ReturnResponseAndError() (interface{}, error) {
-	panic("Hi there! Whatcha doin?")
+type ZiplineTemplate struct {
+	ReturnResponseAndError func() (interface{}, error)
 }
 
-func (z ZiplineTemplate) Post() http.HandlerFunc {
+func (z ZiplineTemplate) Post(i interface{}) http.HandlerFunc {
 	return func(responseWriter http.ResponseWriter, request *http.Request) {
 		var err error // tempory fix
 
@@ -54,7 +52,7 @@ func (z ZiplineTemplate) Post() http.HandlerFunc {
 	}
 }
 
-func (z ZiplineTemplate) Get() http.HandlerFunc {
+func (z ZiplineTemplate) Get(i interface{}) http.HandlerFunc {
 	return func(responseWriter http.ResponseWriter, request *http.Request) {
 		var err error // tempory fix
 

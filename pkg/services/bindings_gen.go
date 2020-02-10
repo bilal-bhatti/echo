@@ -26,13 +26,15 @@ func NewRouter() *chi.Mux {
 
 // ContactsServiceCreateHandlerFunc handles requests to:
 // path  : /contacts
-// method: Post
+// method: post
 func ContactsServiceCreateHandlerFunc() http.HandlerFunc {
 	return func(responseWriter http.ResponseWriter, request *http.Request) {
 		var err error // tempory fix
 
+		// resolve ctx dependency through a provider function
 		ctx := ProvideContext(request)
 
+		// extract json body and marshall contactRequest
 		contactRequest := &models.ContactRequest{}
 		err = json.NewDecoder(request.Body).Decode(contactRequest)
 		if err != nil {
@@ -41,8 +43,9 @@ func ContactsServiceCreateHandlerFunc() http.HandlerFunc {
 			return
 		}
 
+		// initialize application handler
 		contactsService := InitContactsService()
-
+		// execute application handler
 		response, err := contactsService.Create(ctx, contactRequest)
 		if err != nil {
 			panic(err)
@@ -58,11 +61,12 @@ func ContactsServiceCreateHandlerFunc() http.HandlerFunc {
 
 // ContactsServiceGetOneHandlerFunc handles requests to:
 // path  : /contacts/{id}
-// method: Get
+// method: get
 func ContactsServiceGetOneHandlerFunc() http.HandlerFunc {
 	return func(responseWriter http.ResponseWriter, request *http.Request) {
 		var err error // tempory fix
 
+		// parse path parameter id
 		id, err := strconv.Atoi(chi.URLParam(request, "id"))
 		if err != nil {
 			// invalid request error
@@ -70,8 +74,9 @@ func ContactsServiceGetOneHandlerFunc() http.HandlerFunc {
 			return
 		}
 
+		// initialize application handler
 		contactsService := InitContactsService()
-
+		// execute application handler
 		response, err := contactsService.GetOne(id)
 		if err != nil {
 			panic(err)
@@ -87,11 +92,12 @@ func ContactsServiceGetOneHandlerFunc() http.HandlerFunc {
 
 // ThingsServiceCreateHandlerFunc handles requests to:
 // path  : /things
-// method: Post
+// method: post
 func ThingsServiceCreateHandlerFunc() http.HandlerFunc {
 	return func(responseWriter http.ResponseWriter, request *http.Request) {
 		var err error // tempory fix
 
+		// extract json body and marshall thingRequest
 		thingRequest := &models.ThingRequest{}
 		err = json.NewDecoder(request.Body).Decode(thingRequest)
 		if err != nil {
@@ -100,8 +106,9 @@ func ThingsServiceCreateHandlerFunc() http.HandlerFunc {
 			return
 		}
 
+		// initialize application handler
 		thingsService := InitThingsService()
-
+		// execute application handler
 		response, err := thingsService.Create(thingRequest)
 		if err != nil {
 			panic(err)
@@ -117,11 +124,12 @@ func ThingsServiceCreateHandlerFunc() http.HandlerFunc {
 
 // ThingsServiceGetOneHandlerFunc handles requests to:
 // path  : /things/{id}
-// method: Get
+// method: get
 func ThingsServiceGetOneHandlerFunc() http.HandlerFunc {
 	return func(responseWriter http.ResponseWriter, request *http.Request) {
 		var err error // tempory fix
 
+		// parse path parameter id
 		id, err := strconv.Atoi(chi.URLParam(request, "id"))
 		if err != nil {
 			// invalid request error
@@ -129,8 +137,9 @@ func ThingsServiceGetOneHandlerFunc() http.HandlerFunc {
 			return
 		}
 
+		// initialize application handler
 		thingsService := InitThingsService()
-
+		// execute application handler
 		response, err := thingsService.GetOne(id)
 		if err != nil {
 			panic(err)
@@ -146,11 +155,12 @@ func ThingsServiceGetOneHandlerFunc() http.HandlerFunc {
 
 // EchoHandlerFunc handles requests to:
 // path  : /echo
-// method: Post
+// method: post
 func EchoHandlerFunc() http.HandlerFunc {
 	return func(responseWriter http.ResponseWriter, request *http.Request) {
 		var err error // tempory fix
 
+		// extract json body and marshall echoRequest
 		echoRequest := EchoRequest{}
 		err = json.NewDecoder(request.Body).Decode(&echoRequest)
 		if err != nil {
@@ -159,6 +169,7 @@ func EchoHandlerFunc() http.HandlerFunc {
 			return
 		}
 
+		// execute application handler
 		response, err := Echo(echoRequest)
 		if err != nil {
 			panic(err)
