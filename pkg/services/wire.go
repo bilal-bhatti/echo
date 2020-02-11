@@ -15,9 +15,9 @@ func ProvideContext(r *http.Request) context.Context {
 }
 
 func InitContactsService() *ContactsService {
-	panic(wire.Build(connectors.ProvideDataConnector, connectors.ProvideIdentityConnector, connectors.ProvideElasticSearchConnector, ContactsService{}))
+	panic(wire.Build(connectors.ProvideDataConnector, connectors.ProvideIdentityConnector, connectors.ProvideElasticSearchConnector, wire.Struct(new(ContactsService), "*")))
 }
 
 func InitThingsService() *ThingsService {
-	panic(wire.Build(connectors.ProvideDataConnector, connectors.ProvideIdentityConnector, connectors.ProvideElasticSearchConnector, ThingsService{}))
+	panic(wire.Build(connectors.ProvideDataConnector, connectors.ProvideIdentityConnector, connectors.ProvideElasticSearchConnector, wire.Struct(new(ThingsService), "*")))
 }
