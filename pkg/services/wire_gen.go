@@ -13,7 +13,7 @@ import (
 
 // Injectors from wire.go:
 
-func InitContactsService() *ContactsService {
+func InitContactsService() (*ContactsService, error) {
 	dataConnector := connectors.ProvideDataConnector()
 	identityConnector := connectors.ProvideIdentityConnector()
 	elasticSearchConnector := connectors.ProvideElasticSearchConnector()
@@ -22,10 +22,10 @@ func InitContactsService() *ContactsService {
 		Identity:      identityConnector,
 		ElasticSearch: elasticSearchConnector,
 	}
-	return contactsService
+	return contactsService, nil
 }
 
-func InitThingsService() *ThingsService {
+func InitThingsService() (*ThingsService, error) {
 	dataConnector := connectors.ProvideDataConnector()
 	identityConnector := connectors.ProvideIdentityConnector()
 	elasticSearchConnector := connectors.ProvideElasticSearchConnector()
@@ -34,7 +34,7 @@ func InitThingsService() *ThingsService {
 		Identity:      identityConnector,
 		ElasticSearch: elasticSearchConnector,
 	}
-	return thingsService
+	return thingsService, nil
 }
 
 // wire.go:

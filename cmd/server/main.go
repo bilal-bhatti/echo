@@ -2,13 +2,15 @@ package main
 
 import (
 	"context"
-	"github.com/bilal-bhatti/echo/pkg/services"
 	"flag"
+
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
 	"time"
+
+	"github.com/bilal-bhatti/echo/pkg/web"
 )
 
 func main() {
@@ -27,7 +29,7 @@ func main() {
 	// Init http server
 	server := &http.Server{
 		Addr:         *listenAddr,
-		Handler:      services.NewRouter(),
+		Handler:      web.NewRouter(),
 		ErrorLog:     logger,
 		ReadTimeout:  5 * time.Second,
 		WriteTimeout: 10 * time.Second,
