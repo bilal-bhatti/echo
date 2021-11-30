@@ -1,3 +1,4 @@
+.envrc
 echo
 dist
 vendor

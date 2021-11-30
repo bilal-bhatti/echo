@@ -1,19 +1,16 @@
 package services
 
 import (
+	"context"
 	"strings"
 )
-
-type EchoRequest struct {
-	Input string `json:"input"`
-}
 
 type EchoResponse struct {
 	Output string `json:"output"`
 }
 
-func Echo(echoRequest EchoRequest) (EchoResponse, error) {
+func Echo(ctx context.Context, str string) (EchoResponse, error) {
 	return EchoResponse{
-		Output: strings.Replace(echoRequest.Input, "i", "o", -1),
+		Output: strings.Replace(str, "i", "o", -1),
 	}, nil
 }
