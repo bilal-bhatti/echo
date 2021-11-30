@@ -1,7 +1,6 @@
 {
   "components": {
     "schemas": {
-<<<<<<< HEAD
       "ContactRequest": {
         "additionalProperties": false,
         "properties": {
@@ -24,8 +23,6 @@
         },
         "type": "object"
       },
-=======
->>>>>>> origin/master
       "Error": {
         "additionalProperties": false,
         "description": "error response object",
@@ -39,11 +36,7 @@
         },
         "type": "object"
       },
-<<<<<<< HEAD
       "ThingRequest": {
-=======
-      "models.ContactRequest": {
->>>>>>> origin/master
         "additionalProperties": false,
         "properties": {
           "input": {
@@ -52,7 +45,6 @@
         },
         "type": "object"
       },
-<<<<<<< HEAD
       "ThingResponse": {
         "additionalProperties": false,
         "properties": {
@@ -60,38 +52,6 @@
             "additionalProperties": false,
             "type": "object"
           },
-=======
-      "models.ContactResponse": {
-        "additionalProperties": false,
-        "properties": {
-          "output": {
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
-      "models.ThingRequest": {
-        "additionalProperties": false,
-        "properties": {
-          "input": {
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
-      "models.ThingResponse": {
-        "additionalProperties": false,
-        "properties": {
-          "output": {
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
-      "services.EchoResponse": {
-        "additionalProperties": false,
-        "properties": {
->>>>>>> origin/master
           "output": {
             "type": "string"
           }
@@ -107,11 +67,7 @@
   },
   "openapi": "3.0.3",
   "paths": {
-<<<<<<< HEAD
-    "/api/contacts": {
-=======
     "/contacts": {
->>>>>>> origin/master
       "post": {
         "description": "Route description",
         "operationId": "ContactsServiceCreate",
@@ -119,11 +75,7 @@
           "content": {
             "application/json": {
               "schema": {
-<<<<<<< HEAD
                 "$ref": "#/components/schemas/ContactRequest"
-=======
-                "$ref": "#/components/schemas/models.ContactRequest"
->>>>>>> origin/master
               }
             }
           },
@@ -135,11 +87,7 @@
             "content": {
               "application/json": {
                 "schema": {
-<<<<<<< HEAD
                   "$ref": "#/components/schemas/ContactResponse"
-=======
-                  "$ref": "#/components/schemas/models.ContactResponse"
->>>>>>> origin/master
                 }
               }
             },
@@ -158,21 +106,13 @@
         }
       }
     },
-<<<<<<< HEAD
-    "/api/contacts/{id}": {
-=======
     "/contacts/{id}": {
->>>>>>> origin/master
       "get": {
         "description": "Route description",
         "operationId": "ContactsServiceGetOne",
         "parameters": [
           {
-<<<<<<< HEAD
             "in": "path",
-=======
-            "in": "query",
->>>>>>> origin/master
             "name": "id",
             "required": true,
             "schema": {
@@ -185,52 +125,7 @@
             "content": {
               "application/json": {
                 "schema": {
-<<<<<<< HEAD
                   "$ref": "#/components/schemas/ContactResponse"
-=======
-                  "$ref": "#/components/schemas/models.ContactResponse"
->>>>>>> origin/master
-                }
-              }
-            },
-            "description": "200 success response"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            },
-            "description": "unexpected error"
-          }
-        }
-      }
-    },
-<<<<<<< HEAD
-    "/api/things": {
-=======
-    "/echo/{str}": {
-      "get": {
-        "description": "Route description",
-        "operationId": "Echo",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "str",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/services.EchoResponse"
                 }
               }
             },
@@ -250,7 +145,6 @@
       }
     },
     "/things": {
->>>>>>> origin/master
       "post": {
         "description": "Route description",
         "operationId": "ThingsServiceCreate",
@@ -258,11 +152,7 @@
           "content": {
             "application/json": {
               "schema": {
-<<<<<<< HEAD
                 "$ref": "#/components/schemas/ThingRequest"
-=======
-                "$ref": "#/components/schemas/models.ThingRequest"
->>>>>>> origin/master
               }
             }
           },
@@ -274,11 +164,7 @@
             "content": {
               "application/json": {
                 "schema": {
-<<<<<<< HEAD
                   "$ref": "#/components/schemas/ThingResponse"
-=======
-                  "$ref": "#/components/schemas/models.ThingResponse"
->>>>>>> origin/master
                 }
               }
             },
@@ -297,21 +183,13 @@
         }
       }
     },
-<<<<<<< HEAD
-    "/api/things/{id}": {
-=======
     "/things/{id}": {
->>>>>>> origin/master
       "get": {
         "description": "Route description",
         "operationId": "ThingsServiceGetOne",
         "parameters": [
           {
-<<<<<<< HEAD
             "in": "path",
-=======
-            "in": "query",
->>>>>>> origin/master
             "name": "id",
             "required": true,
             "schema": {
@@ -324,11 +202,7 @@
             "content": {
               "application/json": {
                 "schema": {
-<<<<<<< HEAD
                   "$ref": "#/components/schemas/ThingResponse"
-=======
-                  "$ref": "#/components/schemas/models.ThingResponse"
->>>>>>> origin/master
                 }
               }
             },

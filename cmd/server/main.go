@@ -14,7 +14,6 @@ import (
 	"time"
 
 	"github.com/bilal-bhatti/echo/pkg/services"
-	"github.com/bilal-bhatti/echo/pkg/web"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -97,7 +96,6 @@ func main() {
 	server := &http.Server{
 		Addr:         *listenAddr,
 		Handler:      mux,
-		Handler:      web.NewRouter(),
 		ErrorLog:     logger,
 		ReadTimeout:  5 * time.Second,
 		WriteTimeout: 10 * time.Second,

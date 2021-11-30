@@ -27,7 +27,7 @@ func (cs ContactsService) Create(ctx context.Context, contactRequest *ContactReq
 	return &ContactResponse{Output: res, Input: *contactRequest}, nil
 }
 
-func (cs ContactsService) GetOne(id int) (*ContactResponse, error) {
+func (cs ContactsService) GetOne(ctx context.Context, id int) (*ContactResponse, error) {
 	res := cs.Data.GetOne(id)
 
 	return &ContactResponse{Output: res}, nil

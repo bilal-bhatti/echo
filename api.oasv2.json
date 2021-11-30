@@ -18,11 +18,7 @@
   "host": "api.host.com",
   "basePath": "/api",
   "paths": {
-<<<<<<< HEAD
-    "/api/contacts": {
-=======
     "/contacts": {
->>>>>>> origin/master
       "post": {
         "description": "Route description",
         "operationId": "ContactsServiceCreate",
@@ -32,11 +28,7 @@
             "in": "body",
             "required": true,
             "schema": {
-<<<<<<< HEAD
               "$ref": "#/definitions/ContactRequest"
-=======
-              "$ref": "#/definitions/models.ContactRequest"
->>>>>>> origin/master
             }
           }
         ],
@@ -44,11 +36,7 @@
           "200": {
             "description": "200 success response",
             "schema": {
-<<<<<<< HEAD
               "$ref": "#/definitions/ContactResponse"
-=======
-              "$ref": "#/definitions/models.ContactResponse"
->>>>>>> origin/master
             }
           },
           "default": {
@@ -60,11 +48,7 @@
         }
       }
     },
-<<<<<<< HEAD
-    "/api/contacts/{id}": {
-=======
     "/contacts/{id}": {
->>>>>>> origin/master
       "get": {
         "description": "Route description",
         "operationId": "ContactsServiceGetOne",
@@ -72,37 +56,6 @@
           {
             "type": "integer",
             "name": "id",
-<<<<<<< HEAD
-=======
-            "in": "query",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "200 success response",
-            "schema": {
-              "$ref": "#/definitions/models.ContactResponse"
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-    "/echo/{str}": {
-      "get": {
-        "description": "Route description",
-        "operationId": "Echo",
-        "parameters": [
-          {
-            "type": "string",
-            "name": "str",
->>>>>>> origin/master
             "in": "path",
             "required": true
           }
@@ -111,11 +64,7 @@
           "200": {
             "description": "200 success response",
             "schema": {
-<<<<<<< HEAD
               "$ref": "#/definitions/ContactResponse"
-=======
-              "$ref": "#/definitions/services.EchoResponse"
->>>>>>> origin/master
             }
           },
           "default": {
@@ -127,11 +76,7 @@
         }
       }
     },
-<<<<<<< HEAD
-    "/api/things": {
-=======
     "/things": {
->>>>>>> origin/master
       "post": {
         "description": "Route description",
         "operationId": "ThingsServiceCreate",
@@ -141,11 +86,7 @@
             "in": "body",
             "required": true,
             "schema": {
-<<<<<<< HEAD
               "$ref": "#/definitions/ThingRequest"
-=======
-              "$ref": "#/definitions/models.ThingRequest"
->>>>>>> origin/master
             }
           }
         ],
@@ -153,11 +94,7 @@
           "200": {
             "description": "200 success response",
             "schema": {
-<<<<<<< HEAD
               "$ref": "#/definitions/ThingResponse"
-=======
-              "$ref": "#/definitions/models.ThingResponse"
->>>>>>> origin/master
             }
           },
           "default": {
@@ -169,11 +106,7 @@
         }
       }
     },
-<<<<<<< HEAD
-    "/api/things/{id}": {
-=======
     "/things/{id}": {
->>>>>>> origin/master
       "get": {
         "description": "Route description",
         "operationId": "ThingsServiceGetOne",
@@ -181,11 +114,7 @@
           {
             "type": "integer",
             "name": "id",
-<<<<<<< HEAD
             "in": "path",
-=======
-            "in": "query",
->>>>>>> origin/master
             "required": true
           }
         ],
@@ -193,11 +122,7 @@
           "200": {
             "description": "200 success response",
             "schema": {
-<<<<<<< HEAD
               "$ref": "#/definitions/ThingResponse"
-=======
-              "$ref": "#/definitions/models.ThingResponse"
->>>>>>> origin/master
             }
           },
           "default": {
@@ -211,7 +136,6 @@
     }
   },
   "definitions": {
-<<<<<<< HEAD
     "ContactRequest": {
       "type": "object",
       "properties": {
@@ -234,8 +158,6 @@
       },
       "additionalProperties": false
     },
-=======
->>>>>>> origin/master
     "Error": {
       "description": "error response object",
       "type": "object",
@@ -249,11 +171,7 @@
       },
       "additionalProperties": false
     },
-<<<<<<< HEAD
     "ThingRequest": {
-=======
-    "models.ContactRequest": {
->>>>>>> origin/master
       "type": "object",
       "properties": {
         "input": {
@@ -262,7 +180,6 @@
       },
       "additionalProperties": false
     },
-<<<<<<< HEAD
     "ThingResponse": {
       "type": "object",
       "properties": {
@@ -270,38 +187,6 @@
           "type": "object",
           "additionalProperties": false
         },
-=======
-    "models.ContactResponse": {
-      "type": "object",
-      "properties": {
-        "output": {
-          "type": "string"
-        }
-      },
-      "additionalProperties": false
-    },
-    "models.ThingRequest": {
-      "type": "object",
-      "properties": {
-        "input": {
-          "type": "string"
-        }
-      },
-      "additionalProperties": false
-    },
-    "models.ThingResponse": {
-      "type": "object",
-      "properties": {
-        "output": {
-          "type": "string"
-        }
-      },
-      "additionalProperties": false
-    },
-    "services.EchoResponse": {
-      "type": "object",
-      "properties": {
->>>>>>> origin/master
         "output": {
           "type": "string"
         }
