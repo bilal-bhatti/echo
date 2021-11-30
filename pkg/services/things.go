@@ -2,8 +2,16 @@ package services
 
 import (
 	"github.com/bilal-bhatti/echo/pkg/connectors"
-	"github.com/bilal-bhatti/echo/pkg/models"
 )
+
+type ThingRequest struct {
+	Input string `json:"input"`
+}
+
+type ThingResponse struct {
+	Output string       `json:"output"`
+	Input  ThingRequest `json:"input"`
+}
 
 type ThingsService struct {
 	Data          *connectors.DataConnector
@@ -11,14 +19,14 @@ type ThingsService struct {
 	ElasticSearch *connectors.ElasticSearchConnector
 }
 
-func (cs ThingsService) Create(thingRequest *models.ThingRequest) (*models.ThingResponse, error) {
+func (cs ThingsService) Create(thingRequest *ThingRequest) (*ThingResponse, error) {
 	res := cs.Data.Create(thingRequest.Input)
 
-	return &models.ThingResponse{Output: res}, nil
+	return &ThingResponse{Output: res, Input: *thingRequest}, nil
 }
 
-func (cs ThingsService) GetOne(id int) (*models.ThingResponse, error) {
+func (cs ThingsService) GetOne(id int) (*ThingResponse, error) {
 	res := cs.Data.GetOne(id)
 
-	return &models.ThingResponse{Output: res}, nil
+	return &ThingResponse{Output: res}, nil
 }

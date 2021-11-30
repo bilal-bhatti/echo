@@ -2,10 +2,18 @@ package services
 
 import (
 	"context"
+
 	"github.com/bilal-bhatti/echo/pkg/connectors"
-	"github.com/bilal-bhatti/echo/pkg/models"
-	"log"
 )
+
+type ContactRequest struct {
+	Input string `json:"input"`
+}
+
+type ContactResponse struct {
+	Output string         `json:"output"`
+	Input  ContactRequest `json:"input"`
+}
 
 type ContactsService struct {
 	Data          *connectors.DataConnector
@@ -13,17 +21,14 @@ type ContactsService struct {
 	ElasticSearch *connectors.ElasticSearchConnector
 }
 
-func (cs ContactsService) Create(ctx context.Context, contactRequest *models.ContactRequest) (*models.ContactResponse, error) {
+func (cs ContactsService) Create(ctx context.Context, contactRequest *ContactRequest) (*ContactResponse, error) {
 	res := cs.Data.Create(contactRequest.Input)
 
-	return &models.ContactResponse{Output: res}, nil
+	return &ContactResponse{Output: res, Input: *contactRequest}, nil
 }
 
-func (cs ContactsService) GetOne(id int) (*models.ContactResponse, error) {
+func (cs ContactsService) GetOne(id int) (*ContactResponse, error) {
 	res := cs.Data.GetOne(id)
 
-	x := "x"
-	log.Println("x", x)
-
-	return &models.ContactResponse{Output: res}, nil
+	return &ContactResponse{Output: res}, nil
 }

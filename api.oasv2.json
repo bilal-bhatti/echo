@@ -1,0 +1,197 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "OpenAPI Version 2 Specification",
+    "title": "OpenAPI Version 2 Specification",
+    "version": "1.0.0"
+  },
+  "host": "api.host.com",
+  "basePath": "/api",
+  "paths": {
+    "/api/contacts": {
+      "post": {
+        "description": "Route description",
+        "operationId": "ContactsServiceCreate",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContactRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 success response",
+            "schema": {
+              "$ref": "#/definitions/ContactResponse"
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/api/contacts/{id}": {
+      "get": {
+        "description": "Route description",
+        "operationId": "ContactsServiceGetOne",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 success response",
+            "schema": {
+              "$ref": "#/definitions/ContactResponse"
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/api/things": {
+      "post": {
+        "description": "Route description",
+        "operationId": "ThingsServiceCreate",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ThingRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 success response",
+            "schema": {
+              "$ref": "#/definitions/ThingResponse"
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/api/things/{id}": {
+      "get": {
+        "description": "Route description",
+        "operationId": "ThingsServiceGetOne",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 success response",
+            "schema": {
+              "$ref": "#/definitions/ThingResponse"
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ContactRequest": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ContactResponse": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "object",
+          "additionalProperties": false
+        },
+        "output": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Error": {
+      "description": "error response object",
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ThingRequest": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ThingResponse": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "object",
+          "additionalProperties": false
+        },
+        "output": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
