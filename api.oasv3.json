@@ -1,0 +1,272 @@
+{
+  "components": {
+    "schemas": {
+      "Error": {
+        "additionalProperties": false,
+        "description": "error response object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "models.ContactRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "input": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "models.ContactResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "output": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "models.ThingRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "input": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "models.ThingResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "output": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "services.EchoResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "output": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "description": "OpenAPI Version 2 Specification",
+    "title": "OpenAPI Version 2 Specification",
+    "version": "1.0.0"
+  },
+  "openapi": "3.0.3",
+  "paths": {
+    "/contacts": {
+      "post": {
+        "description": "Route description",
+        "operationId": "ContactsServiceCreate",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/models.ContactRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.ContactResponse"
+                }
+              }
+            },
+            "description": "200 success response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "unexpected error"
+          }
+        }
+      }
+    },
+    "/contacts/{id}": {
+      "get": {
+        "description": "Route description",
+        "operationId": "ContactsServiceGetOne",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.ContactResponse"
+                }
+              }
+            },
+            "description": "200 success response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "unexpected error"
+          }
+        }
+      }
+    },
+    "/echo/{str}": {
+      "get": {
+        "description": "Route description",
+        "operationId": "Echo",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "str",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/services.EchoResponse"
+                }
+              }
+            },
+            "description": "200 success response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "unexpected error"
+          }
+        }
+      }
+    },
+    "/things": {
+      "post": {
+        "description": "Route description",
+        "operationId": "ThingsServiceCreate",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/models.ThingRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.ThingResponse"
+                }
+              }
+            },
+            "description": "200 success response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "unexpected error"
+          }
+        }
+      }
+    },
+    "/things/{id}": {
+      "get": {
+        "description": "Route description",
+        "operationId": "ThingsServiceGetOne",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.ThingResponse"
+                }
+              }
+            },
+            "description": "200 success response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "unexpected error"
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "http://api.host.com/api"
+    },
+    {
+      "url": "https://api.host.com/api"
+    }
+  ]
+}

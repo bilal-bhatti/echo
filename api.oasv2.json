@@ -21,6 +21,7 @@
     "/contacts": {
       "post": {
         "description": "Route description",
+        "operationId": "ContactsServiceCreate",
         "parameters": [
           {
             "name": "body",
@@ -50,6 +51,7 @@
     "/contacts/{id}": {
       "get": {
         "description": "Route description",
+        "operationId": "ContactsServiceGetOne",
         "parameters": [
           {
             "type": "integer",
@@ -77,6 +79,7 @@
     "/echo/{str}": {
       "get": {
         "description": "Route description",
+        "operationId": "Echo",
         "parameters": [
           {
             "type": "string",
@@ -104,6 +107,7 @@
     "/things": {
       "post": {
         "description": "Route description",
+        "operationId": "ThingsServiceCreate",
         "parameters": [
           {
             "name": "body",
@@ -133,6 +137,7 @@
     "/things/{id}": {
       "get": {
         "description": "Route description",
+        "operationId": "ThingsServiceGetOne",
         "parameters": [
           {
             "type": "integer",

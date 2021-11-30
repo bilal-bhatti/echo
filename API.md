@@ -19,15 +19,15 @@ Produces:    [application/json]
 ```
 
 `body parameter`
-- name: `body`, type: `models.ContactRequest`
-	- name: `input`, type: `string`
+- body: `models.ContactRequest`
+	- input: `string`
 
 `responses`
 - code: `200`, type: `models.ContactResponse`
-	- name: `output`, type: `string`
+	- output: `string`
 - `default`, type: `Error`
-	- name: `code`, type: `integer`
-	- name: `status`, type: `string`
+	- code: `integer`
+	- status: `string`
 </details>
 
 <details>
@@ -39,15 +39,15 @@ Produces:    [application/json]
 ```
 
 `query parameters`
-- name: `id`, type: `integer`
+- id: `integer`
 
 
 `responses`
 - code: `200`, type: `models.ContactResponse`
-	- name: `output`, type: `string`
+	- output: `string`
 - `default`, type: `Error`
-	- name: `code`, type: `integer`
-	- name: `status`, type: `string`
+	- code: `integer`
+	- status: `string`
 </details>
 
 <details>
@@ -59,15 +59,15 @@ Produces:    [application/json]
 ```
 
 `path parameters`
-- name: `str`, type: `string`
+- str: `string`
 
 
 `responses`
 - code: `200`, type: `services.EchoResponse`
-	- name: `output`, type: `string`
+	- output: `string`
 - `default`, type: `Error`
-	- name: `code`, type: `integer`
-	- name: `status`, type: `string`
+	- code: `integer`
+	- status: `string`
 </details>
 
 <details>
@@ -79,15 +79,15 @@ Produces:    [application/json]
 ```
 
 `body parameter`
-- name: `body`, type: `models.ThingRequest`
-	- name: `input`, type: `string`
+- body: `models.ThingRequest`
+	- input: `string`
 
 `responses`
 - code: `200`, type: `models.ThingResponse`
-	- name: `output`, type: `string`
+	- output: `string`
 - `default`, type: `Error`
-	- name: `code`, type: `integer`
-	- name: `status`, type: `string`
+	- code: `integer`
+	- status: `string`
 </details>
 
 <details>
@@ -99,14 +99,14 @@ Produces:    [application/json]
 ```
 
 `query parameters`
-- name: `id`, type: `integer`
+- id: `integer`
 
 
 `responses`
 - code: `200`, type: `models.ThingResponse`
-	- name: `output`, type: `string`
+	- output: `string`
 - `default`, type: `Error`
-	- name: `code`, type: `integer`
-	- name: `status`, type: `string`
+	- code: `integer`
+	- status: `string`
 </details>
 

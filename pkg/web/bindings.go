@@ -1,4 +1,5 @@
-//+build ziplinegen
+//go:build ziplinegen
+// +build ziplinegen
 
 package web
 
