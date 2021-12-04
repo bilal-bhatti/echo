@@ -28,7 +28,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/ContactRequest"
+              "$ref": "#/definitions/services.ContactRequest"
             }
           }
         ],
@@ -36,7 +36,7 @@
           "200": {
             "description": "200 success response",
             "schema": {
-              "$ref": "#/definitions/ContactResponse"
+              "$ref": "#/definitions/services.ContactResponse"
             }
           },
           "default": {
@@ -64,7 +64,7 @@
           "200": {
             "description": "200 success response",
             "schema": {
-              "$ref": "#/definitions/ContactResponse"
+              "$ref": "#/definitions/services.ContactResponse"
             }
           },
           "default": {
@@ -86,7 +86,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/ThingRequest"
+              "$ref": "#/definitions/services.ThingRequest"
             }
           }
         ],
@@ -94,7 +94,7 @@
           "200": {
             "description": "200 success response",
             "schema": {
-              "$ref": "#/definitions/ThingResponse"
+              "$ref": "#/definitions/services.ThingResponse"
             }
           },
           "default": {
@@ -122,7 +122,7 @@
           "200": {
             "description": "200 success response",
             "schema": {
-              "$ref": "#/definitions/ThingResponse"
+              "$ref": "#/definitions/services.ThingResponse"
             }
           },
           "default": {
@@ -136,28 +136,6 @@
     }
   },
   "definitions": {
-    "ContactRequest": {
-      "type": "object",
-      "properties": {
-        "input": {
-          "type": "string"
-        }
-      },
-      "additionalProperties": false
-    },
-    "ContactResponse": {
-      "type": "object",
-      "properties": {
-        "input": {
-          "type": "object",
-          "additionalProperties": false
-        },
-        "output": {
-          "type": "string"
-        }
-      },
-      "additionalProperties": false
-    },
     "Error": {
       "description": "error response object",
       "type": "object",
@@ -171,7 +149,7 @@
       },
       "additionalProperties": false
     },
-    "ThingRequest": {
+    "services.ContactRequest": {
       "type": "object",
       "properties": {
         "input": {
@@ -180,7 +158,29 @@
       },
       "additionalProperties": false
     },
-    "ThingResponse": {
+    "services.ContactResponse": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "object",
+          "additionalProperties": false
+        },
+        "output": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "services.ThingRequest": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "services.ThingResponse": {
       "type": "object",
       "properties": {
         "input": {

@@ -1,28 +1,6 @@
 {
   "components": {
     "schemas": {
-      "ContactRequest": {
-        "additionalProperties": false,
-        "properties": {
-          "input": {
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
-      "ContactResponse": {
-        "additionalProperties": false,
-        "properties": {
-          "input": {
-            "additionalProperties": false,
-            "type": "object"
-          },
-          "output": {
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
       "Error": {
         "additionalProperties": false,
         "description": "error response object",
@@ -36,7 +14,7 @@
         },
         "type": "object"
       },
-      "ThingRequest": {
+      "services.ContactRequest": {
         "additionalProperties": false,
         "properties": {
           "input": {
@@ -45,7 +23,29 @@
         },
         "type": "object"
       },
-      "ThingResponse": {
+      "services.ContactResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "input": {
+            "additionalProperties": false,
+            "type": "object"
+          },
+          "output": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "services.ThingRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "input": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "services.ThingResponse": {
         "additionalProperties": false,
         "properties": {
           "input": {
@@ -75,7 +75,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ContactRequest"
+                "$ref": "#/components/schemas/services.ContactRequest"
               }
             }
           },
@@ -87,7 +87,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContactResponse"
+                  "$ref": "#/components/schemas/services.ContactResponse"
                 }
               }
             },
@@ -125,7 +125,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContactResponse"
+                  "$ref": "#/components/schemas/services.ContactResponse"
                 }
               }
             },
@@ -152,7 +152,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ThingRequest"
+                "$ref": "#/components/schemas/services.ThingRequest"
               }
             }
           },
@@ -164,7 +164,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ThingResponse"
+                  "$ref": "#/components/schemas/services.ThingResponse"
                 }
               }
             },
@@ -202,7 +202,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ThingResponse"
+                  "$ref": "#/components/schemas/services.ThingResponse"
                 }
               }
             },

@@ -3,15 +3,19 @@
 //go:build !ziplinegen
 // +build !ziplinegen
 
-package services
+package web
 
 import (
 	"encoding/json"
+	"io"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"strconv"
 	"time"
 
+	"github.com/bilal-bhatti/echo/pkg/services"
+	"github.com/bilal-bhatti/skit"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -40,39 +44,32 @@ func ContactsServiceCreateHandlerFunc() http.HandlerFunc {
 		}()
 
 		// initialize application handler
-		handler, err := InitContactsService()
+		handler, err := services.InitContactsService()
 		if err != nil {
 
-			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+			skit.Error(w, err)
 			return
 		}
 
 		// resolve parameter [ctx] through a provider
-		ctx := ProvideContext(r)
+		ctx := services.ProvideContext(r)
 
 		// resolve parameter [contactRequest] with [Body] template
-		contactRequest := &ContactRequest{}
+		defer io.Copy(ioutil.Discard, r.Body)
+		contactRequest := &services.ContactRequest{}
 		err = json.NewDecoder(r.Body).Decode(contactRequest)
 		if err != nil {
-			http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+			skit.Error(w, skit.Wrap(err, "failed to decode request body").WithStatusCode(http.StatusBadRequest))
 			return
 		}
 
 		// execute application handler
 		response, err := handler.Create(ctx, contactRequest)
 		if err != nil {
-
-			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+			skit.Error(w, err)
 			return
 		}
-		w.WriteHeader(http.StatusOK)
-		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		err = json.NewEncoder(w).Encode(response)
-		if err != nil {
-
-			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
-			return
-		}
+		skit.Success(w, response)
 	}
 }
 
@@ -90,20 +87,20 @@ func ContactsServiceGetOneHandlerFunc() http.HandlerFunc {
 		}()
 
 		// initialize application handler
-		handler, err := InitContactsService()
+		handler, err := services.InitContactsService()
 		if err != nil {
 
-			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+			skit.Error(w, err)
 			return
 		}
 
 		// resolve parameter [ctx] through a provider
-		ctx := ProvideContext(r)
+		ctx := services.ProvideContext(r)
 
 		// resolve parameter [id] with [Path] template
 		id, err := strconv.Atoi(chi.URLParam(r, "id"))
 		if err != nil {
-			http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+			skit.Error(w, skit.Wrap(err, "failed to parse path paremeter as int").WithStatusCode(http.StatusBadRequest))
 			return
 		}
 
@@ -111,17 +108,10 @@ func ContactsServiceGetOneHandlerFunc() http.HandlerFunc {
 		response, err := handler.GetOne(ctx, id)
 		if err != nil {
 
-			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+			skit.Error(w, err)
 			return
 		}
-		w.WriteHeader(http.StatusOK)
-		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		err = json.NewEncoder(w).Encode(response)
-		if err != nil {
-
-			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
-			return
-		}
+		skit.Success(w, response)
 	}
 }
 
@@ -139,39 +129,32 @@ func ThingsServiceCreateHandlerFunc() http.HandlerFunc {
 		}()
 
 		// initialize application handler
-		handler, err := InitThingsService()
+		handler, err := services.InitThingsService()
 		if err != nil {
 
-			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+			skit.Error(w, err)
 			return
 		}
 
 		// resolve parameter [ctx] through a provider
-		ctx := ProvideContext(r)
+		ctx := services.ProvideContext(r)
 
 		// resolve parameter [thingRequest] with [Body] template
-		thingRequest := &ThingRequest{}
+		defer io.Copy(ioutil.Discard, r.Body)
+		thingRequest := &services.ThingRequest{}
 		err = json.NewDecoder(r.Body).Decode(thingRequest)
 		if err != nil {
-			http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+			skit.Error(w, skit.Wrap(err, "failed to decode request body").WithStatusCode(http.StatusBadRequest))
 			return
 		}
 
 		// execute application handler
 		response, err := handler.Create(ctx, thingRequest)
 		if err != nil {
-
-			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+			skit.Error(w, err)
 			return
 		}
-		w.WriteHeader(http.StatusOK)
-		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		err = json.NewEncoder(w).Encode(response)
-		if err != nil {
-
-			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
-			return
-		}
+		skit.Success(w, response)
 	}
 }
 
@@ -189,20 +172,20 @@ func ThingsServiceGetOneHandlerFunc() http.HandlerFunc {
 		}()
 
 		// initialize application handler
-		handler, err := InitThingsService()
+		handler, err := services.InitThingsService()
 		if err != nil {
 
-			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+			skit.Error(w, err)
 			return
 		}
 
 		// resolve parameter [ctx] through a provider
-		ctx := ProvideContext(r)
+		ctx := services.ProvideContext(r)
 
 		// resolve parameter [id] with [Path] template
 		id, err := strconv.Atoi(chi.URLParam(r, "id"))
 		if err != nil {
-			http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+			skit.Error(w, skit.Wrap(err, "failed to parse path paremeter as int").WithStatusCode(http.StatusBadRequest))
 			return
 		}
 
@@ -210,16 +193,9 @@ func ThingsServiceGetOneHandlerFunc() http.HandlerFunc {
 		response, err := handler.GetOne(ctx, id)
 		if err != nil {
 
-			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+			skit.Error(w, err)
 			return
 		}
-		w.WriteHeader(http.StatusOK)
-		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		err = json.NewEncoder(w).Encode(response)
-		if err != nil {
-
-			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
-			return
-		}
+		skit.Success(w, response)
 	}
 }

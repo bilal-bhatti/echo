@@ -19,11 +19,11 @@ Produces:    [application/json]
 ```
 
 `body parameter`
-- body: `ContactRequest`
+- body: `services.ContactRequest`
 	- input: `string`
 
 `responses`
-- code: `200`, type: `ContactResponse`
+- code: `200`, type: `services.ContactResponse`
 	- input: `object`
 	- output: `string`
 - `default`, type: `Error`
@@ -44,7 +44,7 @@ Produces:    [application/json]
 
 
 `responses`
-- code: `200`, type: `ContactResponse`
+- code: `200`, type: `services.ContactResponse`
 	- input: `object`
 	- output: `string`
 - `default`, type: `Error`
@@ -61,11 +61,11 @@ Produces:    [application/json]
 ```
 
 `body parameter`
-- body: `ThingRequest`
+- body: `services.ThingRequest`
 	- input: `string`
 
 `responses`
-- code: `200`, type: `ThingResponse`
+- code: `200`, type: `services.ThingResponse`
 	- input: `object`
 	- output: `string`
 - `default`, type: `Error`
@@ -86,7 +86,7 @@ Produces:    [application/json]
 
 
 `responses`
-- code: `200`, type: `ThingResponse`
+- code: `200`, type: `services.ThingResponse`
 	- input: `object`
 	- output: `string`
 - `default`, type: `Error`

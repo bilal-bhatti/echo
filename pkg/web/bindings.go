@@ -1,26 +1,30 @@
 //go:build ziplinegen
 // +build ziplinegen
 
-package services
+package web
 
 import (
 	"encoding/json"
+	"io"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"strconv"
 	"time"
 
+	"github.com/bilal-bhatti/echo/pkg/services"
+	"github.com/bilal-bhatti/skit"
 	"github.com/go-chi/chi/v5"
 )
 
 func NewRouter(mux *chi.Mux) *chi.Mux {
 	// bind contacts
-	mux.Post("/contacts", z.Post(new(ContactsService).Create, z.Resolve, z.Body))
-	mux.Get("/contacts/{id}", z.Get(new(ContactsService).GetOne, z.Resolve, z.Path))
+	mux.Post("/contacts", z.Post(new(services.ContactsService).Create, z.Resolve, z.Body))
+	mux.Get("/contacts/{id}", z.Get(new(services.ContactsService).GetOne, z.Resolve, z.Path))
 
 	// bind things
-	mux.Post("/things", z.Post(ThingsService.Create, z.Resolve, z.Body))
-	mux.Get("/things/{id}", z.Get(ThingsService.GetOne, z.Resolve, z.Path))
+	mux.Post("/things", z.Post(services.ThingsService.Create, z.Resolve, z.Body))
+	mux.Get("/things/{id}", z.Get(services.ThingsService.GetOne, z.Resolve, z.Path))
 
 	//mux.Get("/echo/{str}", z.Get(services.Echo, z.Resolve, z.Path))
 
@@ -45,7 +49,7 @@ func (z ZiplineTemplate) Path(kind string, w http.ResponseWriter, r *http.Reques
 		name, err := strconv.Atoi(chi.URLParam(r, "name"))
 		if err != nil {
 			// invalid request error
-			http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+			skit.Error(w, skit.Wrap(err, "failed to parse path paremeter as int").WithStatusCode(http.StatusBadRequest))
 			return
 		}
 		z.DevNull(name)
@@ -61,7 +65,7 @@ func (z ZiplineTemplate) Query(kind string, w http.ResponseWriter, r *http.Reque
 		name, err := strconv.Atoi(r.URL.Query().Get("name"))
 		if err != nil {
 			// invalid request error
-			http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+			skit.Error(w, skit.Wrap(err, "failed to parse query paremeter as int").WithStatusCode(http.StatusBadRequest))
 			return
 		}
 		z.DevNull(name)
@@ -70,11 +74,11 @@ func (z ZiplineTemplate) Query(kind string, w http.ResponseWriter, r *http.Reque
 
 func (z ZiplineTemplate) Body(w http.ResponseWriter, r *http.Request) {
 	var err error
+	defer io.Copy(ioutil.Discard, r.Body)
 	name := &ZiplineTemplate{}
 	err = json.NewDecoder(r.Body).Decode(&name)
 	if err != nil {
-		// invalid request error
-		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+		skit.Error(w, skit.Wrap(err, "failed to decode request body").WithStatusCode(http.StatusBadRequest))
 		return
 	}
 }
@@ -92,26 +96,17 @@ func (z ZiplineTemplate) Post(i interface{}, p ...interface{}) http.HandlerFunc 
 		handler, err := z.Resolve()
 		if err != nil {
 			// write error response
-			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+			skit.Error(w, err)
 			return
 		}
 
 		response, err := handler.ReturnResponseAndError()
 		if err != nil {
-			// write error response
-			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+			skit.Error(w, err)
 			return
 		}
 
-		w.WriteHeader(http.StatusOK)
-		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-
-		err = json.NewEncoder(w).Encode(response)
-		if err != nil {
-			// write error response
-			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
-			return
-		}
+		skit.Success(w, response)
 	}
 }
 
@@ -128,26 +123,18 @@ func (z ZiplineTemplate) Get(i interface{}, p ...interface{}) http.HandlerFunc {
 		handler, err := z.Resolve()
 		if err != nil {
 			// write error response
-			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+			skit.Error(w, err)
 			return
 		}
 
 		response, err := handler.ReturnResponseAndError()
 		if err != nil {
 			// write error response
-			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+			skit.Error(w, err)
 			return
 		}
 
-		w.WriteHeader(http.StatusOK)
-		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-
-		err = json.NewEncoder(w).Encode(response)
-		if err != nil {
-			// write error response
-			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
-			return
-		}
+		skit.Success(w, response)
 	}
 }
 
@@ -164,7 +151,7 @@ func (z ZiplineTemplate) Delete(i interface{}, params ...interface{}) http.Handl
 		handler, err := z.Resolve()
 		if err != nil {
 			// write error response
-			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+			skit.Error(w, err)
 			return
 		}
 
@@ -172,7 +159,7 @@ func (z ZiplineTemplate) Delete(i interface{}, params ...interface{}) http.Handl
 
 		if err != nil {
 			// write error response
-			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+			skit.Error(w, err)
 			return
 		}
 
@@ -193,25 +180,17 @@ func (z ZiplineTemplate) Put(i interface{}, p ...interface{}) http.HandlerFunc {
 		handler, err := z.Resolve()
 		if err != nil {
 			// write error response
-			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+			skit.Error(w, err)
 			return
 		}
 
 		response, err := handler.ReturnResponseAndError()
 		if err != nil {
 			// write error response
-			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+			skit.Error(w, err)
 			return
 		}
 
-		w.WriteHeader(http.StatusOK)
-		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-
-		err = json.NewEncoder(w).Encode(response)
-		if err != nil {
-			// write error response
-			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
-			return
-		}
+		skit.Success(w, response)
 	}
 }

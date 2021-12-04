@@ -13,7 +13,7 @@ import (
 	"os/signal"
 	"time"
 
-	"github.com/bilal-bhatti/echo/pkg/services"
+	"github.com/bilal-bhatti/echo/pkg/web"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -90,7 +90,7 @@ func main() {
 
 	mux.Use(Inspector(mux))
 
-	mux = services.NewRouter(mux)
+	mux = web.NewRouter(mux)
 
 	// Init http server
 	server := &http.Server{
