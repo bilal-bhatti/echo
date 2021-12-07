@@ -2,4 +2,6 @@
 echo
 dist
 vendor
+.DS_Store
+
 

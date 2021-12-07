@@ -47,7 +47,7 @@ func ContactsServiceCreateHandlerFunc() http.HandlerFunc {
 		handler, err := services.InitContactsService()
 		if err != nil {
 
-			skit.Error(w, err)
+			skit.Failure(w, err)
 			return
 		}
 
@@ -59,14 +59,14 @@ func ContactsServiceCreateHandlerFunc() http.HandlerFunc {
 		contactRequest := &services.ContactRequest{}
 		err = json.NewDecoder(r.Body).Decode(contactRequest)
 		if err != nil {
-			skit.Error(w, skit.Wrap(err, "failed to decode request body").WithStatusCode(http.StatusBadRequest))
+			skit.Failure(w, skit.WithStatus(err, http.StatusBadRequest, "failed to decode request body"))
 			return
 		}
 
 		// execute application handler
 		response, err := handler.Create(ctx, contactRequest)
 		if err != nil {
-			skit.Error(w, err)
+			skit.Failure(w, err)
 			return
 		}
 		skit.Success(w, response)
@@ -90,7 +90,7 @@ func ContactsServiceGetOneHandlerFunc() http.HandlerFunc {
 		handler, err := services.InitContactsService()
 		if err != nil {
 
-			skit.Error(w, err)
+			skit.Failure(w, err)
 			return
 		}
 
@@ -100,7 +100,7 @@ func ContactsServiceGetOneHandlerFunc() http.HandlerFunc {
 		// resolve parameter [id] with [Path] template
 		id, err := strconv.Atoi(chi.URLParam(r, "id"))
 		if err != nil {
-			skit.Error(w, skit.Wrap(err, "failed to parse path paremeter as int").WithStatusCode(http.StatusBadRequest))
+			skit.Failure(w, skit.WithStatus(err, http.StatusBadRequest, "failed to parse path parameter as int"))
 			return
 		}
 
@@ -108,7 +108,7 @@ func ContactsServiceGetOneHandlerFunc() http.HandlerFunc {
 		response, err := handler.GetOne(ctx, id)
 		if err != nil {
 
-			skit.Error(w, err)
+			skit.Failure(w, err)
 			return
 		}
 		skit.Success(w, response)
@@ -132,7 +132,7 @@ func ThingsServiceCreateHandlerFunc() http.HandlerFunc {
 		handler, err := services.InitThingsService()
 		if err != nil {
 
-			skit.Error(w, err)
+			skit.Failure(w, err)
 			return
 		}
 
@@ -144,14 +144,14 @@ func ThingsServiceCreateHandlerFunc() http.HandlerFunc {
 		thingRequest := &services.ThingRequest{}
 		err = json.NewDecoder(r.Body).Decode(thingRequest)
 		if err != nil {
-			skit.Error(w, skit.Wrap(err, "failed to decode request body").WithStatusCode(http.StatusBadRequest))
+			skit.Failure(w, skit.WithStatus(err, http.StatusBadRequest, "failed to decode request body"))
 			return
 		}
 
 		// execute application handler
 		response, err := handler.Create(ctx, thingRequest)
 		if err != nil {
-			skit.Error(w, err)
+			skit.Failure(w, err)
 			return
 		}
 		skit.Success(w, response)
@@ -175,7 +175,7 @@ func ThingsServiceGetOneHandlerFunc() http.HandlerFunc {
 		handler, err := services.InitThingsService()
 		if err != nil {
 
-			skit.Error(w, err)
+			skit.Failure(w, err)
 			return
 		}
 
@@ -185,7 +185,7 @@ func ThingsServiceGetOneHandlerFunc() http.HandlerFunc {
 		// resolve parameter [id] with [Path] template
 		id, err := strconv.Atoi(chi.URLParam(r, "id"))
 		if err != nil {
-			skit.Error(w, skit.Wrap(err, "failed to parse path paremeter as int").WithStatusCode(http.StatusBadRequest))
+			skit.Failure(w, skit.WithStatus(err, http.StatusBadRequest, "failed to parse path parameter as int"))
 			return
 		}
 
@@ -193,7 +193,7 @@ func ThingsServiceGetOneHandlerFunc() http.HandlerFunc {
 		response, err := handler.GetOne(ctx, id)
 		if err != nil {
 
-			skit.Error(w, err)
+			skit.Failure(w, err)
 			return
 		}
 		skit.Success(w, response)

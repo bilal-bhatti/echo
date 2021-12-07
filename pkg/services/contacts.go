@@ -2,8 +2,11 @@ package services
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/bilal-bhatti/echo/pkg/connectors"
+	"github.com/bilal-bhatti/skit"
+	"github.com/pkg/errors"
 )
 
 type ContactRequest struct {
@@ -22,7 +25,7 @@ type ContactsService struct {
 }
 
 func (cs ContactsService) Create(ctx context.Context, contactRequest *ContactRequest) (*ContactResponse, error) {
-	res := cs.Data.Create(contactRequest.Input)
+	//	res := cs.Data.Create(contactRequest.Input)
 	// 400 Bad Request – client sent an invalid request, such as lacking required request body or parameter
 	// - request parsing time
 	// - business rules validation
@@ -33,7 +36,8 @@ func (cs ContactsService) Create(ctx context.Context, contactRequest *ContactReq
 	// 500 Internal Server Error – a generic error occurred on the server
 	// 503 Service Unavailable – the requested service is not available
 
-	return &ContactResponse{Output: res, Input: *contactRequest}, nil
+	//return &ContactResponse{Output: res, Input: *contactRequest}, nil
+	return nil, skit.WithStatus(errors.New("something went wrong"), http.StatusBadRequest, []string{"one", "two"})
 }
 
 func (cs ContactsService) GetOne(ctx context.Context, id int) (*ContactResponse, error) {

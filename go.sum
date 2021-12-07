@@ -1,5 +1,5 @@
-github.com/bilal-bhatti/skit v0.0.1 h1:pz4Vb7J+6n8Gu6clsbXm3nwBnkumDLiFgE6R5FBGX5s=
-github.com/bilal-bhatti/skit v0.0.1/go.mod h1:RFvbsw9j9ne33lFGpgrZfChzD2MvnqPdqT5Ee5ZCYxg=
+github.com/bilal-bhatti/skit v0.0.3 h1:K19/9DXapSqY/tLuXndWWZpaJKUjcaYiP/QjFtyfbMg=
+github.com/bilal-bhatti/skit v0.0.3/go.mod h1:RFvbsw9j9ne33lFGpgrZfChzD2MvnqPdqT5Ee5ZCYxg=
 github.com/go-chi/chi/v5 v5.0.7 h1:rDTPXLDHGATaeHvVlLcR4Qe0zftYethFucbjVQ1PxU8=
 github.com/go-chi/chi/v5 v5.0.7/go.mod h1:DslCQbL2OYiznFReuXYUmQ2hGd1aDpCnlMNITLSKoi8=
 github.com/google/go-cmp v0.2.0/go.mod h1:oXzfMopK8JAjlY9xF4vHSVASa0yLyX7SntLO5aqRK0M=

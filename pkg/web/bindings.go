@@ -49,7 +49,7 @@ func (z ZiplineTemplate) Path(kind string, w http.ResponseWriter, r *http.Reques
 		name, err := strconv.Atoi(chi.URLParam(r, "name"))
 		if err != nil {
 			// invalid request error
-			skit.Error(w, skit.Wrap(err, "failed to parse path paremeter as int").WithStatusCode(http.StatusBadRequest))
+			skit.Failure(w, skit.WithStatus(err, http.StatusBadRequest, "failed to parse path parameter as int"))
 			return
 		}
 		z.DevNull(name)
@@ -65,7 +65,7 @@ func (z ZiplineTemplate) Query(kind string, w http.ResponseWriter, r *http.Reque
 		name, err := strconv.Atoi(r.URL.Query().Get("name"))
 		if err != nil {
 			// invalid request error
-			skit.Error(w, skit.Wrap(err, "failed to parse query paremeter as int").WithStatusCode(http.StatusBadRequest))
+			skit.Failure(w, skit.WithStatus(err, http.StatusBadRequest, "failed to parse query paremeter as int"))
 			return
 		}
 		z.DevNull(name)
@@ -78,7 +78,7 @@ func (z ZiplineTemplate) Body(w http.ResponseWriter, r *http.Request) {
 	name := &ZiplineTemplate{}
 	err = json.NewDecoder(r.Body).Decode(&name)
 	if err != nil {
-		skit.Error(w, skit.Wrap(err, "failed to decode request body").WithStatusCode(http.StatusBadRequest))
+		skit.Failure(w, skit.WithStatus(err, http.StatusBadRequest, "failed to decode request body"))
 		return
 	}
 }
@@ -96,13 +96,13 @@ func (z ZiplineTemplate) Post(i interface{}, p ...interface{}) http.HandlerFunc 
 		handler, err := z.Resolve()
 		if err != nil {
 			// write error response
-			skit.Error(w, err)
+			skit.Failure(w, err)
 			return
 		}
 
 		response, err := handler.ReturnResponseAndError()
 		if err != nil {
-			skit.Error(w, err)
+			skit.Failure(w, err)
 			return
 		}
 
@@ -123,14 +123,14 @@ func (z ZiplineTemplate) Get(i interface{}, p ...interface{}) http.HandlerFunc {
 		handler, err := z.Resolve()
 		if err != nil {
 			// write error response
-			skit.Error(w, err)
+			skit.Failure(w, err)
 			return
 		}
 
 		response, err := handler.ReturnResponseAndError()
 		if err != nil {
 			// write error response
-			skit.Error(w, err)
+			skit.Failure(w, err)
 			return
 		}
 
@@ -151,7 +151,7 @@ func (z ZiplineTemplate) Delete(i interface{}, params ...interface{}) http.Handl
 		handler, err := z.Resolve()
 		if err != nil {
 			// write error response
-			skit.Error(w, err)
+			skit.Failure(w, err)
 			return
 		}
 
@@ -159,7 +159,7 @@ func (z ZiplineTemplate) Delete(i interface{}, params ...interface{}) http.Handl
 
 		if err != nil {
 			// write error response
-			skit.Error(w, err)
+			skit.Failure(w, err)
 			return
 		}
 
@@ -180,14 +180,14 @@ func (z ZiplineTemplate) Put(i interface{}, p ...interface{}) http.HandlerFunc {
 		handler, err := z.Resolve()
 		if err != nil {
 			// write error response
-			skit.Error(w, err)
+			skit.Failure(w, err)
 			return
 		}
 
 		response, err := handler.ReturnResponseAndError()
 		if err != nil {
 			// write error response
-			skit.Error(w, err)
+			skit.Failure(w, err)
 			return
 		}
 
